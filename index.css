@@ -1,0 +1,1764 @@
+/* ==========================================================================
+   PROFESSIONAL MINIMALIST 3D DESK PORTFOLIO SYSTEM
+   ========================================================================== */
+
+:root {
+    /* Day Theme - Cool & Cozy 6:00 AM Dawn Plaster and Soft Oak Wood */
+    --bg-wall-day: #b6c1cd;
+    --left-wall-day: #aab5c1;
+    --right-wall-day: #aab5c1;
+    --wood-primary-day: #cca984; /* Light Oak Tabletop */
+    --wood-secondary-day: #b3916e;
+    --wood-shadow-day: #8c6e4e;
+    --metal-base-day: #e2e8f0;
+    --metal-border-day: #64748b;
+    
+    --sky-day: linear-gradient(to bottom, #bae6fd 0%, #e0f2fe 50%, #ffedd5 100%);
+    --cloud-color-day: rgba(255, 255, 255, 0.85);
+    --mountain-far-color-day: #cbd5e1;
+    --mountain-near-color-day: #94a3b8;
+    --curtain-color-day: rgba(220, 228, 238, 0.7); /* Cool pale morning curtains */
+    
+    --lamp-body-day: #94a3b8; /* Brushed Steel */
+    --lamp-joint-day: #475569;
+    --lamp-bulb-glow-day: rgba(255, 255, 255, 0);
+    --wall-texture-day: rgba(255, 255, 255, 0.05);
+    --window-bg-day: url('background-day.png');
+    --window-filter-day: brightness(0.78) contrast(0.9) saturate(0.85);
+    
+    /* Night Theme - Deep Cozy Midnight Vibe */
+    --bg-wall-night: #090d16;
+    --left-wall-color-night: #06090f;
+    --right-wall-color-night: #06090f;
+    --wood-primary-night: #6e4e3b;
+    --wood-secondary-night: #523728;
+    --wood-shadow-night: #362115;
+    --metal-base-night: #1e293b;
+    --metal-border-night: #0f172a;
+    
+    --sky-night: linear-gradient(to bottom, #020617 0%, #0c1126 50%, #1e1b4b 100%);
+    --cloud-color-night: rgba(30, 41, 59, 0.3);
+    --mountain-far-color-night: #0f172a;
+    --mountain-near-color-night: #020617;
+    --curtain-color-night: rgba(30, 41, 59, 0.4);
+    
+    --lamp-body-night: #475569;
+    --lamp-joint-night: #1e293b;
+    --lamp-bulb-glow-night: #fef08a;
+    --wall-texture-night: rgba(255, 255, 255, 0.025);
+    --window-bg-night: url('background-night.png');
+
+    /* Styling defaults */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-handwritten: 'Caveat', cursive;
+    --font-title: 'Comfortaa', cursive;
+    
+    --theme-transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    /* Current Bindings */
+    --bg-wall: var(--bg-wall-day);
+    --left-wall-color: var(--left-wall-day);
+    --right-wall-color: var(--right-wall-day);
+    --wood-primary: var(--wood-primary-day);
+    --wood-secondary: var(--wood-secondary-day);
+    --wood-shadow: var(--wood-shadow-day);
+    --metal-base: var(--metal-base-day);
+    --metal-border: var(--metal-border-day);
+    --sky-bg: var(--sky-day);
+    --cloud-color: var(--cloud-color-day);
+    --mountain-far-color: var(--mountain-far-color-day);
+    --mountain-near-color: var(--mountain-near-color-day);
+    --curtain-color: var(--curtain-color-day);
+    --wall-texture: var(--wall-texture-day);
+    --window-bg: var(--window-bg-day);
+    --window-filter: var(--window-filter-day);
+}
+
+body.dark-theme {
+    --bg-wall: var(--bg-wall-night);
+    --left-wall-color: var(--left-wall-color-night);
+    --right-wall-color: var(--right-wall-color-night);
+    --wood-primary: var(--wood-primary-night);
+    --wood-secondary: var(--wood-secondary-night);
+    --wood-shadow: var(--wood-shadow-night);
+    --metal-base: var(--metal-base-night);
+    --metal-border: var(--metal-border-night);
+    --sky-bg: var(--sky-night);
+    --cloud-color: var(--cloud-color-night);
+    --mountain-far-color: var(--mountain-far-color-night);
+    --mountain-near-color: var(--mountain-near-color-night);
+    --curtain-color: var(--curtain-color-night);
+    --wall-texture: var(--wall-texture-night);
+    --window-bg: var(--window-bg-night);
+    --window-filter: none;
+}
+
+/* ==========================================================================
+   RESET & LAYOUT BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-body);
+    background: #111; /* Outer masking */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.hidden { display: none !important; }
+
+/* ==========================================================================
+   3D ROOM VIEWPORT
+   ========================================================================== */
+.room-viewport {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Cinematic Tabletop Closeup Zoom */
+body.viewing-book .room-viewport {
+    transform: translateY(-50%) scale(1.58) rotateX(12deg);
+    filter: brightness(0.8);
+    pointer-events: none;
+}
+
+/* Header UI Overlay */
+.room-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 45px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.portfolio-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e293b;
+    pointer-events: auto;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.9);
+    transition: var(--theme-transition);
+}
+
+body.dark-theme .portfolio-title {
+    color: #f8fafc;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+
+/* Toggle Switch */
+.theme-toggle-header {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 2px solid #475569;
+    width: 68px;
+    height: 32px;
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+body.dark-theme .theme-toggle-header {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: #0f172a;
+}
+
+.toggle-slider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+}
+
+.toggle-icon { font-size: 0.95rem; }
+
+.toggle-thumb {
+    width: 22px;
+    height: 22px;
+    background: #f59e0b;
+    border: 2px solid #475569;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body.dark-theme .toggle-thumb {
+    transform: translateX(34px);
+    background: #f1f5f9;
+    border-color: #0f172a;
+}
+
+/* ==========================================================================
+   3D WALLS & FLOOR ENVIRONMENT
+   ========================================================================== */
+.room-3d-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    z-index: 10;
+}
+
+/* Base wall shape layout */
+.wall {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    transition: var(--theme-transition);
+}
+
+/* Center Back Wall */
+.wall-back {
+    width: 100%;
+    left: 0;
+    background-color: var(--bg-wall);
+    background-image: 
+        radial-gradient(var(--wall-texture) 1.5px, transparent 1.5px),
+        radial-gradient(var(--wall-texture) 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+    transform: none;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0;
+}
+
+/* Left perspective wall */
+.wall-left {
+    display: none !important;
+}
+
+/* Right perspective wall */
+.wall-right {
+    display: none !important;
+}
+
+/* Left wall decoration - taped papers */
+.geometric-art-frame {
+    width: 130px;
+    height: 160px;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    padding: 10px;
+    transform: rotate(-3deg);
+    border: 1px solid #e2e8f0;
+}
+
+.sketch-paper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.tape {
+    position: absolute;
+    width: 35px;
+    height: 10px;
+    background: rgba(0,0,0,0.85); /* Black masking tape style */
+    transform: rotate(-10deg);
+}
+
+.tape-top { top: -14px; left: calc(50% - 17px); }
+.tape-bottom { bottom: -14px; left: calc(50% - 17px); }
+
+.sketch-svg { width: 100%; height: 100%; }
+
+.taped-blueprints {
+    transform: rotate(5deg);
+    filter: drop-shadow(2px 5px 6px rgba(0,0,0,0.08));
+}
+
+.blueprint-paper {
+    background: #fdfaf2;
+    border: 1px solid #e2e8f0;
+    width: 160px;
+    height: 120px;
+    padding: 8px;
+    position: relative;
+}
+
+.tape-corner {
+    position: absolute;
+    width: 25px;
+    height: 8px;
+    background: rgba(0,0,0,0.85);
+}
+.tc-1 { top: -4px; left: -8px; transform: rotate(-45deg); }
+.tc-2 { top: -4px; right: -8px; transform: rotate(45deg); }
+
+.blueprint-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    margin-bottom: 4px;
+    color: #4a5568;
+    text-transform: uppercase;
+}
+.blueprint-svg { width: 100%; height: auto; }
+
+/* Right wall decoration - wooden wall shelf */
+.wall-wood-shelf {
+    position: relative;
+    width: 160px;
+    height: 140px;
+    transform: translateY(-50px);
+}
+
+.shelf-board {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    height: 10px;
+    background: #85583f;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.shelf-bracket {
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 25px;
+    background: #5c3e2c;
+}
+.sb-left { left: 20px; }
+.sb-right { right: 20px; }
+
+.shelf-item {
+    position: absolute;
+    bottom: 35px;
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
+}
+
+.glass-jar {
+    left: 25px;
+    width: 25px;
+    height: 40px;
+    border: 1.5px solid #94a3b8;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+}
+
+.jar-glow {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(254, 240, 138, 0.4) 0%, transparent 80%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+body.dark-theme .jar-glow { opacity: 1; }
+
+.tiny-plant {
+    right: 35px;
+    width: 28px;
+    height: 35px;
+    background: #334155; /* Silhouette styled item */
+    clip-path: polygon(15% 100%, 85% 100%, 100% 40%, 80% 40%, 50% 0%, 20% 40%, 0 40%);
+}
+
+/* Ground floor perspective planks */
+.floor-planks {
+    display: none !important;
+}
+
+/* ==========================================================================
+   WINDOW AREA & CURTAINS
+   ========================================================================== */
+.window-area {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 5;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.window-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 10px solid #85583f;
+    border-bottom-width: 14px;
+    z-index: 10;
+    pointer-events: none;
+    transition: var(--theme-transition);
+}
+
+.window-sill {
+    position: absolute;
+    bottom: -22px;
+    left: -20px;
+    right: -20px;
+    height: 14px;
+    background: #6a442e;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    z-index: 12;
+    transition: var(--theme-transition);
+}
+
+.window-grid-v {
+    position: absolute;
+    left: 50%;
+    width: 6px;
+    height: 100%;
+    background: #85583f;
+    transform: translateX(-50%);
+    z-index: 8;
+    transition: var(--theme-transition);
+}
+
+.window-grid-h {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    height: 6px;
+    background: #85583f;
+    z-index: 8;
+    transition: var(--theme-transition);
+}
+
+.window-glass-pane {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
+    z-index: 7;
+}
+
+/* Outside Scenery */
+.scenery-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 0px;
+    background: var(--sky-bg);
+    overflow: hidden;
+    z-index: 2;
+    transition: var(--theme-transition);
+}
+
+.scenery-layer {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    top: -7.5%;
+    left: -7.5%;
+    will-change: transform;
+    transform: translate(
+        calc(var(--bg-shift-x, 0) * var(--parallax-factor, 10px)),
+        calc(var(--bg-shift-y, 0) * var(--parallax-factor, 10px))
+    );
+}
+
+.layer-flat-background {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    background-image: var(--window-bg);
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+    --parallax-factor: 15px;
+    filter: var(--window-filter, none);
+    transform: translate(
+        calc(var(--bg-shift-x, 0) * var(--parallax-factor, 15px)),
+        calc(var(--bg-shift-y, 0) * var(--parallax-factor, 15px))
+    );
+    transition: background-image 0.8s ease, filter 0.8s ease;
+}
+
+/* Waving curtains */
+.curtains-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    z-index: 9;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.curtain {
+    width: 24%;
+    height: 106%;
+}
+
+.curtain-svg { width: 100%; height: 100%; }
+
+.curtain-path-left, .curtain-path-right {
+    fill: var(--curtain-color);
+    transition: var(--theme-transition);
+}
+
+.curtain-left {
+    transform-origin: top left;
+    animation: waveLeftCurtain 6s infinite ease-in-out alternate;
+}
+
+.curtain-right {
+    transform-origin: top right;
+    animation: waveRightCurtain 6.5s infinite ease-in-out alternate;
+}
+
+/* Waving linen drapes keyframes */
+@keyframes waveLeftCurtain {
+    0% { transform: rotate(0.2deg) skewX(1deg) scaleX(1); }
+    50% { transform: rotate(-0.5deg) skewX(-2.5deg) scaleX(0.97); }
+    100% { transform: rotate(0.3deg) skewX(1.5deg) scaleX(1.02); }
+}
+
+@keyframes waveRightCurtain {
+    0% { transform: rotate(-0.2deg) skewX(-1deg) scaleX(1); }
+    50% { transform: rotate(0.5deg) skewX(2.5deg) scaleX(0.97); }
+    100% { transform: rotate(-0.3deg) skewX(-1.5deg) scaleX(1.02); }
+}
+
+/* Sunlight and Moonlight beam overlays */
+.sun-light-rays {
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 140%;
+    height: 150%;
+    background: linear-gradient(135deg, rgba(253, 224, 71, 0.1) 0%, rgba(253, 224, 71, 0.02) 60%, rgba(253, 224, 71, 0) 100%);
+    z-index: 10;
+    pointer-events: none;
+    clip-path: polygon(0 0, 35% 0, 95% 100%, 15% 100%);
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+.moon-light-rays {
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 140%;
+    height: 150%;
+    background: linear-gradient(135deg, rgba(147, 197, 253, 0.05) 0%, rgba(147, 197, 253, 0.01) 60%, rgba(147, 197, 253, 0) 100%);
+    z-index: 10;
+    pointer-events: none;
+    clip-path: polygon(10% 0, 45% 0, 100% 100%, 30% 100%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+body.dark-theme .sun-light-rays { opacity: 0; }
+body.dark-theme .moon-light-rays { opacity: 1; }
+
+
+/* ==========================================================================
+   DESK & SAW-HORSE TRESTLE LEGS (MATCHING PICTURE)
+   ========================================================================== */
+.desk-structure {
+    position: absolute;
+    bottom: 0;
+    left: 4%;
+    width: 92%;
+    height: 15%; /* Pull the table more downwards */
+    z-index: 15;
+    transform: translateZ(50px);
+}
+
+.desk-tabletop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25px; /* Thicker tabletop edge */
+    background: var(--wood-primary);
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15),
+                inset 0 1px 3px rgba(255,255,255,0.2);
+    z-index: 10;
+    overflow: visible;
+    transition: var(--theme-transition);
+}
+
+.wood-bevel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+}
+
+.wood-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.12;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,0) 0px,
+        rgba(0,0,0,0) 120px,
+        rgba(0,0,0,0.15) 121px,
+        rgba(0,0,0,0.2) 123px,
+        rgba(0,0,0,0) 124px
+    );
+}
+
+/* Desk sawhorse/trestle legs */
+.desk-legs {
+    position: absolute;
+    top: 23px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 23px);
+    z-index: 5;
+}
+
+.sawhorse-leg {
+    position: absolute;
+    width: 130px;
+    height: 100%;
+}
+
+.sawhorse-left { left: 10%; }
+.sawhorse-right { right: 10%; }
+
+.sawhorse-beam {
+    position: absolute;
+    background: var(--metal-base);
+    border: 2px solid var(--metal-border);
+    transition: var(--theme-transition);
+}
+
+.beam-top {
+    top: 0;
+    left: 15px;
+    width: 100px;
+    height: 12px;
+}
+
+.sawhorse-strut {
+    position: absolute;
+    width: 12px;
+    height: 96%;
+    background: var(--metal-base);
+    border: 2.5px solid var(--metal-border);
+    transform-origin: top center;
+    transition: var(--theme-transition);
+}
+
+.strut-left {
+    left: 20px;
+    transform: rotate(14deg);
+}
+
+.strut-right {
+    right: 20px;
+    transform: rotate(-14deg);
+}
+
+.sawhorse-brace {
+    position: absolute;
+    bottom: 25%;
+    left: 15px;
+    width: 100px;
+    height: 8px;
+    background: var(--metal-base);
+    border: 2px solid var(--metal-border);
+    transition: var(--theme-transition);
+}
+
+.sawhorse-shelf-plank {
+    position: absolute;
+    bottom: 25%;
+    left: 5px;
+    width: 120px;
+    height: 5px;
+    background: var(--wood-secondary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: var(--theme-transition);
+}
+
+/* ==========================================================================
+   DESKTOP OBJECTS ARRANGEMENT
+   ========================================================================== */
+.desk-contents {
+    position: absolute;
+    top: -240px; /* Shift everything above the table top */
+    left: 0;
+    width: 100%;
+    height: 240px;
+    pointer-events: none;
+}
+
+.desk-contents > * {
+    pointer-events: auto; /* Re-enable pointer events for items */
+}
+
+/* Wooden Organizer (LEFT SIDE) */
+.wooden-organizer {
+    position: absolute;
+    bottom: 0;
+    left: 4%;
+    width: 190px;
+    height: 180px;
+    z-index: 12;
+    filter: drop-shadow(2px 5px 6px rgba(0,0,0,0.15));
+}
+
+.organizer-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--wood-secondary);
+    border: 3.5px solid var(--wood-shadow);
+    border-radius: 4px;
+    transition: var(--theme-transition);
+}
+
+.organizer-dividers {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+}
+
+.divider {
+    width: 5px;
+    height: 100%;
+    background: var(--wood-shadow);
+    transition: var(--theme-transition);
+}
+
+.organizer-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px; /* Pocket lip */
+    background: var(--wood-primary);
+    border: 3px solid var(--wood-shadow);
+    border-radius: 0 0 4px 4px;
+    transition: var(--theme-transition);
+}
+
+/* Books arranged inside organizer */
+.wooden-organizer .books-wrapper {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: calc(100% - 20px);
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.wooden-organizer .desk-book {
+    width: 32px; /* Wider spines */
+    height: 155px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
+}
+
+.wooden-organizer .desk-book:hover {
+    transform: translateY(-20px) rotate(-1deg);
+    z-index: 20;
+}
+
+.wooden-organizer .book-spine {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+.wooden-organizer .spine-text {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+/* Organizer Book Themes */
+.book-about .book-spine { background: #0e7490; color: #ecfeff; }
+.book-skills .book-spine { background: #0369a1; color: #f0f9ff; }
+.book-projects .book-spine { background: #b45309; color: #fffbeb; }
+.book-resume { height: 120px; }
+.book-resume .book-spine { background: #475569; color: #f8fafc; }
+
+
+/* Social Toolbox (LEFT-CENTER) */
+.toolbox-container {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 130px;
+    height: 155px;
+    z-index: 12;
+}
+
+.pen-cup {
+    position: absolute;
+    bottom: 0;
+    left: 20px; /* Centered in container */
+    width: 80px;
+    height: 90px;
+    z-index: 10;
+    filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.15));
+}
+
+.cup-body {
+    width: 100%;
+    height: 100%;
+    background: #1e293b;
+    border: 2px solid #334155;
+    border-radius: 4px 4px 6px 6px;
+    transition: var(--theme-transition);
+}
+
+
+
+.cup-rim {
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: 5px;
+    background: #334155;
+    border-bottom: 1.5px solid #0f172a;
+    transition: var(--theme-transition);
+}
+
+.cup-label {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: #cbd5e1;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    pointer-events: none;
+    opacity: 0.65;
+    transition: var(--theme-transition);
+}
+
+.toolbox-container .tools-wrapper {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 155px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.toolbox-container .desk-tool {
+    position: absolute;
+    bottom: 0;
+    width: 22px;
+    height: 120px;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+    transform-origin: bottom center;
+}
+
+.toolbox-container .desk-tool:hover {
+    transform: translateY(-24px) scale(1.08);
+    z-index: 25 !important;
+}
+
+/* Fan positioning of tools inside organizer cup */
+.tool-github    { left: 18px; transform: rotate(0deg); z-index: 1; }
+.tool-linkedin  { left: 31px; transform: rotate(0deg); z-index: 3; }
+.tool-instagram { left: 44px; transform: rotate(0deg); z-index: 4; }
+.tool-gmail     { left: 57px; transform: rotate(0deg); z-index: 2; }
+.tool-envelope  { left: 70px; transform: rotate(0deg); z-index: 1; }
+
+.toolbox-container .tool-label {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: #1e293b;
+    color: #f8fafc;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toolbox-container .desk-tool:hover .tool-label {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+
+/* Sleek Laptop (CENTER) */
+.pc-setup-container {
+    position: absolute;
+    bottom: 0;
+    left: 36%;
+    width: 330px;
+    height: 170px;
+    z-index: 11;
+}
+
+.monitor-bezel {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+    width: 220px;
+    height: 130px;
+    background: #0f172a;
+    border: 4px solid #334155;
+    border-radius: 6px;
+    z-index: 10;
+    padding: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transition: var(--theme-transition);
+}
+
+.monitor-screen {
+    width: 100%;
+    height: 100%;
+    background: #030712;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.monitor-stand {
+    position: absolute;
+    bottom: 10px;
+    left: 110px;
+    width: 20px;
+    height: 25px;
+    background: #475569;
+    border: 2.5px solid #1e293b;
+    z-index: 5;
+    transition: var(--theme-transition);
+}
+
+.monitor-base {
+    position: absolute;
+    bottom: 0;
+    left: 80px;
+    width: 80px;
+    height: 10px;
+    background: #334155;
+    border: 2px solid #1e293b;
+    border-radius: 4px 4px 2px 2px;
+    z-index: 6;
+    transition: var(--theme-transition);
+}
+
+.cpu-tower {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 150px;
+    background: #0f172a;
+    border: 2.5px solid #1e293b;
+    border-radius: 4px;
+    z-index: 8;
+    box-shadow: 2px 8px 16px rgba(0,0,0,0.15);
+    overflow: hidden;
+    transition: var(--theme-transition);
+}
+
+.cpu-power-btn {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: #64748b;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    transition: var(--theme-transition);
+}
+
+body.dark-theme .cpu-power-btn {
+    background: #06b6d4;
+    box-shadow: 0 0 8px #06b6d4;
+}
+
+.cpu-side-panel {
+    position: absolute;
+    top: 25px;
+    left: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 35px);
+    background: rgba(15, 23, 42, 0.5);
+    border: 1.5px solid rgba(100, 116, 139, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.cpu-gpu-glow {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    width: 80%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 80%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+body.dark-theme .cpu-gpu-glow {
+    opacity: 1;
+    animation: pulseGpu 3s infinite ease-in-out alternate;
+}
+
+@keyframes pulseGpu {
+    0% { background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 80%); }
+    100% { background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 80%); }
+}
+
+.pc-keyboard {
+    position: absolute;
+    bottom: -8px;
+    left: 30px;
+    width: 170px;
+    height: 10px;
+    background: #1e293b;
+    border: 2px solid #0f172a;
+    border-radius: 2px;
+    z-index: 12;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: var(--theme-transition);
+}
+
+.keyboard-keys {
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.3) 3px,
+        rgba(255,255,255,0.3) 4px
+    );
+}
+
+.pc-mouse {
+    position: absolute;
+    bottom: -7px;
+    left: 210px;
+    width: 15px;
+    height: 8px;
+    background: #1e293b;
+    border: 1.5px solid #0f172a;
+    border-radius: 5px 5px 2px 2px;
+    z-index: 12;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: var(--theme-transition);
+}
+
+.screen-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+}
+
+.anime-code-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
+    animation: pulseGlow 4s infinite ease-in-out alternate;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.clock-display {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+    z-index: 10;
+}
+
+body.dark-theme .clock-display {
+    color: #a5f3fc;
+    text-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+}
+
+.date-display {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(255,255,255,0.2);
+    z-index: 10;
+    transition: var(--theme-transition);
+}
+
+body.dark-theme .date-display {
+    color: #67e8f9;
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+}
+
+
+/* Small Potted Cactus (CENTER-RIGHT) */
+.cactus-container {
+    position: absolute;
+    bottom: 0;
+    left: 62%;
+    width: 40px;
+    height: 65px;
+    z-index: 11;
+    filter: drop-shadow(1px 3px 3px rgba(0,0,0,0.12));
+}
+
+.cactus-pot {
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    width: 24px;
+    height: 20px;
+    background: #c2410c; /* Terracotta Red */
+    border: 1.5px solid #7c2d12;
+    border-radius: 0 0 4px 4px;
+    z-index: 5;
+}
+
+.cactus-plant {
+    position: absolute;
+    bottom: 18px;
+    left: 12px;
+    width: 16px;
+    height: 32px;
+    background: #15803d;
+    border: 1.5px solid #14532d;
+    border-radius: 8px 8px 0 0;
+    z-index: 3;
+}
+
+.cactus-branch {
+    position: absolute;
+    background: inherit;
+    border: inherit;
+    width: 8px;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.branch-left {
+    left: -6px;
+    top: 6px;
+    border-radius: 4px 0 0 4px;
+    transform: rotate(-15deg);
+}
+
+.branch-right {
+    right: -6px;
+    top: 10px;
+    border-radius: 0 4px 4px 0;
+    transform: rotate(15deg);
+}
+
+
+/* Modern Desk Lamp (RIGHT SIDE) */
+.lamp-container {
+    position: absolute;
+    bottom: -8px;
+    right: 4%;
+    width: 170px;
+    height: 210px;
+    z-index: 12;
+}
+
+.lamp-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+}
+
+.lamp-arms {
+    transition: var(--theme-transition);
+}
+
+.lamp-bulb {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.dark-theme .lamp-bulb { opacity: 1; }
+
+/* Tactile Pull Chain/String with Spring Physics */
+.lamp-pull-string {
+    position: absolute;
+    top: 85px;
+    left: 114px;
+    width: 20px;
+    height: 70px;
+    cursor: grab;
+    z-index: 20;
+    transform-origin: top center;
+    touch-action: none; /* Disable default scrolling on string */
+}
+
+.lamp-pull-string:active {
+    cursor: grabbing;
+}
+
+.string-line {
+    width: 2px;
+    height: 50px;
+    background: #64748b;
+    margin: 0 auto;
+    transition: background 0.8s ease;
+    transform-origin: top center;
+}
+
+body.dark-theme .string-line { background: #94a3b8; }
+
+.string-handle {
+    width: 10px;
+    height: 14px;
+    background: #d97706; /* Brass */
+    border: 1.5px solid #7c2d12;
+    border-radius: 2px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Snapping bounce spring animation when released */
+.string-snap-back {
+    animation: snapSpring 0.8s cubic-bezier(0.25, 1.25, 0.5, 1.1) forwards;
+}
+
+@keyframes snapSpring {
+    0% { transform: scaleY(1.3) translateY(10px) rotate(5deg); }
+    30% { transform: scaleY(0.8) translateY(-4px) rotate(-8deg); }
+    50% { transform: scaleY(1.1) translateY(2px) rotate(4deg); }
+    70% { transform: scaleY(0.95) translateY(-1px) rotate(-2deg); }
+    100% { transform: scaleY(1) translateY(0) rotate(0); }
+}
+
+/* Lamp Glow Cone */
+.lamp-light-cone {
+    position: absolute;
+    top: 80px;
+    left: -150px;
+    width: 320px;
+    height: 380px;
+    background: radial-gradient(ellipse at top right, rgba(254, 240, 138, 0.35) 0%, rgba(254, 240, 138, 0.08) 50%, rgba(254, 240, 138, 0) 75%);
+    clip-path: polygon(75% 0, 85% 0, 100% 100%, 0 100%);
+    z-index: 8;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+    filter: blur(2.5px);
+    transition: opacity 0.4s ease;
+}
+
+body.dark-theme .lamp-light-cone { opacity: 1; }
+
+
+/* ==========================================================================
+   STORYBOOK CLOSEUP MODULE
+   ========================================================================== */
+.storybook-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 200;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.viewing-book .storybook-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bookmark-close {
+    position: absolute;
+    top: 0;
+    right: 8%;
+    width: 70px;
+    height: 110px;
+    cursor: pointer;
+    z-index: 210;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top center;
+}
+
+.bookmark-close:hover { transform: translateY(10px); }
+
+.bookmark-text {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #fff;
+    background: #dc2626;
+    padding: 5px 7px;
+    border-radius: 3px 3px 0 0;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.bookmark-ribbon {
+    width: 38px;
+    height: 75px;
+    background: #dc2626;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.book-viewport {
+    width: 82%;
+    max-width: 900px;
+    height: 78%;
+    max-height: 520px;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.storybook {
+    width: 100%;
+    height: 100%;
+    background: #faf7ef;
+    border: 7px solid #5c3e2c;
+    border-radius: 10px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.4), inset 0 0 35px rgba(0,0,0,0.05);
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    transform: rotateX(5deg) scale(0.92);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.viewing-book .storybook { transform: rotateX(0) scale(1); }
+
+.storybook::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.03) 30%, rgba(255,255,255,0.08) 50%, rgba(0,0,0,0.12) 100%);
+    z-index: 5;
+}
+
+.page-turn-zone {
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    z-index: 20;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(92, 62, 44, 0.2);
+    font-size: 2.6rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.zone-left {
+    left: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+}
+
+.zone-right {
+    right: 0;
+    background: linear-gradient(-90deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
+}
+
+.storybook:hover .page-turn-zone { opacity: 1; }
+
+.page-turn-zone:hover {
+    color: rgba(92, 62, 44, 0.7);
+    background: rgba(0,0,0,0.02);
+}
+
+.pages-wrapper { width: 100%; height: 100%; }
+
+.book-content-group { display: none; width: 100%; height: 100%; }
+.book-content-group.active-group { display: block; }
+
+.book-spread {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(35px) scale(0.98);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.book-spread.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+}
+
+.book-spread.exit-left {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-35px) scale(0.98);
+}
+
+.journal-page {
+    width: 50%;
+    height: 100%;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    position: relative;
+}
+
+.journal-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+    background-image: linear-gradient(#4a2810 1px, transparent 1px);
+    background-size: 100% 22px;
+    pointer-events: none;
+}
+
+.page-left { border-right: 1px solid rgba(0,0,0,0.05); padding-right: 40px; }
+.page-right { padding-left: 40px; }
+
+/* TYPOGRAPHY IN JOURNALS */
+.page-header {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #8b5a2b;
+    letter-spacing: 1.2px;
+}
+
+.sketchy-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(139, 90, 43, 0.12);
+    margin: 6px 0 12px 0;
+}
+
+.page-body { flex-grow: 1; display: flex; flex-direction: column; }
+
+.handwritten-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #2d1a0b;
+    margin-bottom: 8px;
+}
+
+.journal-paragraph { font-size: 0.9rem; line-height: 1.55; color: #433422; margin-bottom: 12px; }
+
+.signature-vibe {
+    font-family: var(--font-handwritten);
+    font-size: 1.25rem;
+    line-height: 1.35;
+    color: #1d4ed8;
+}
+
+body.dark-theme .signature-vibe { color: #60a5fa; }
+
+.journal-subtitle {
+    font-family: var(--font-heading);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: #7c2d12;
+    margin-bottom: 6px;
+    margin-top: 8px;
+}
+
+.journal-list { margin-left: 18px; margin-bottom: 12px; }
+.journal-list li { font-size: 0.85rem; line-height: 1.45; color: #433422; margin-bottom: 5px; }
+
+.page-footer {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8b5a2b;
+    text-align: center;
+}
+
+.sketched-stamp {
+    font-family: var(--font-handwritten);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #dc2626;
+    border: 2px dashed #dc2626;
+    border-radius: 3px;
+    padding: 3px 8px;
+    display: inline-block;
+    align-self: flex-start;
+    transform: rotate(-5deg);
+    margin-top: 8px;
+}
+
+.quote-box {
+    border-left: 2.5px solid #8b5a2b;
+    padding-left: 10px;
+    font-style: italic;
+    color: #78350f;
+    margin: 12px 0;
+}
+
+.edu-card {
+    background: rgba(217, 119, 6, 0.04);
+    border: 1px dashed rgba(139, 90, 43, 0.25);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.edu-inst { font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #78350f; }
+.edu-location { font-size: 0.75rem; color: #7c2d12; margin-bottom: 4px; }
+.edu-degree { font-size: 0.8rem; margin-bottom: 3px; }
+.edu-timeline { font-size: 0.75rem; color: #8b5a2b; }
+
+.grade-seal {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px dashed #059669;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(6deg);
+}
+
+.seal-inner { text-align: center; display: flex; flex-direction: column; line-height: 1; }
+.seal-label { font-size: 0.45rem; font-weight: 700; }
+.seal-value { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; }
+.seal-max { font-size: 0.45rem; }
+
+/* Skills Grid */
+.skills-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.skill-item { display: flex; flex-direction: column; gap: 3px; }
+.skill-name { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; color: #433422; }
+.skill-bar-outer { width: 100%; height: 6px; background: rgba(139, 90, 43, 0.08); border-radius: 3px; overflow: hidden; }
+.skill-bar-inner { height: 100%; border-radius: 3px; }
+
+.python-bar { background: #0f766e; }
+.java-bar { background: #b45309; }
+.js-bar { background: #0284c7; }
+.sql-bar { background: #475569; }
+.ml-bar { background: #8b5a2b; }
+
+.webdev-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.badge {
+    background: #fff;
+    border: 1px solid rgba(139, 90, 43, 0.25);
+    border-radius: 15px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #543d2b;
+}
+
+.bullet-skills-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.bullet-skills-list div {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: #433422;
+    padding-left: 10px;
+    border-left: 2px solid rgba(139, 90, 43, 0.3);
+}
+
+.doodle-container { margin-top: auto; display: flex; justify-content: center; color: rgba(139, 90, 43, 0.2); }
+
+/* Projects Page elements */
+.project-title-h { font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #2d1a0b; }
+.project-tagline { font-size: 0.75rem; font-style: italic; color: #8b5a2b; margin-bottom: 8px; }
+.project-tech-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.project-tech-badges span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    background: rgba(15, 118, 110, 0.06);
+    color: #0f766e;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+}
+.project-desc { font-size: 0.82rem; line-height: 1.45; }
+.project-bullets li { font-size: 0.8rem !important; line-height: 1.4 !important; margin-bottom: 6px !important; }
+
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .window-area { width: auto; height: auto; }
+    .desk-structure { left: 2%; width: 96%; }
+    .wooden-organizer { left: 2%; }
+    .toolbox-container { left: 23%; }
+    .pc-setup-container { left: 34%; }
+    .cactus-container { left: 63%; }
+    .lamp-container { right: 2%; }
+    .storybook { height: 75%; }
+}
+
+@media (max-width: 768px) {
+    body { overflow-y: auto; }
+    .room-viewport { height: auto; min-height: 100vh; display: block; }
+    .room-header { position: relative; padding: 20px; }
+    
+    .room-3d-box {
+        position: relative;
+        transform: none;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding-bottom: 40px;
+    }
+    
+    .wall { position: relative; transform: none !important; width: 100% !important; border: none !important; left: auto !important; right: auto !important; height: auto !important; padding: 20px !important; }
+    .wall-left { display: none; } /* Hide blueprints on mobile to clean up space */
+    .wall-right { display: none; }
+    .floor-planks { display: none; }
+
+    .wall-back { justify-content: center; padding-top: 10px; background: none; }
+    .window-area { position: relative; width: 90%; height: 220px; margin: 0 auto; top: auto; left: auto; right: auto; bottom: auto; }
+    .sun-light-rays, .moon-light-rays { display: none; }
+
+    .desk-structure {
+        position: relative;
+        left: 0;
+        width: 95%;
+        height: 380px;
+        margin: 20px auto;
+        transform: none !important;
+    }
+    
+    .desk-legs { display: none; } /* Hide wooden sawhorse struts on small mobile */
+    .desk-tabletop { position: relative; width: 100%; height: 100%; top: 0; padding: 15px; overflow: auto; }
+    
+    .desk-contents { position: relative; top: 0; height: auto; width: 100%; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+    
+    .wooden-organizer { position: relative; left: auto; top: auto; bottom: auto; margin: 10px 0; }
+    .toolbox-container { position: relative; left: auto; top: auto; bottom: auto; margin: 10px 0; }
+    .pc-setup-container { position: relative; left: auto; top: auto; bottom: auto; margin: 10px 0; width: 260px; height: 180px; }
+    .cactus-container { display: none; }
+    .lamp-container { position: relative; right: auto; top: auto; bottom: auto; margin: 10px 0; transform: scale(0.9); }
+    .lamp-light-cone { display: none; }
+
+    body.viewing-book .room-viewport { transform: none; filter: blur(4px); }
+    .book-viewport { width: 96%; height: 92%; }
+    .storybook { flex-direction: column; overflow-y: auto; border-width: 4px; }
+    .storybook::after { display: none; }
+    .journal-page { width: 100%; height: auto; border: none; padding: 20px; }
+    .page-left { border-bottom: 2px solid rgba(0,0,0,0.05); padding-right: 20px; }
+    .page-right { padding-left: 20px; padding-top: 30px; }
+}

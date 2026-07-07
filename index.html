@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Chandra's Interactive Anime Portfolio</title>
+    <meta name="description" content="Welcome to the interactive portfolio of Karupakala Rahul Chandra, an AI & Machine Learning engineer. Experience a cozy anime-style study desk, custom animations, and interactive project journals.">
+    <!-- Google Fonts for Anime Theme & Reading text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css?v=12">
+</head>
+<body class="dark-theme">
+    <!-- Main 3D Room Nook Viewport -->
+    <div class="room-viewport" id="room-viewport">
+        <!-- Floating Dust Particles & Twinkling Stars -->
+        <div class="dust-particles" id="dust-particles"></div>
+        <div class="stars-overlay" id="stars-overlay"></div>
+
+        <!-- Room Header -->
+        <header class="room-header">
+            <h1 class="portfolio-title">Rahul Chandra's Work Space</h1>
+            <div class="theme-toggle-header" id="theme-toggle-header" title="Toggle Day/Night Mode">
+                <div class="toggle-slider">
+                    <span class="toggle-icon sun-icon">☀️</span>
+                    <span class="toggle-icon moon-icon">🌙</span>
+                    <div class="toggle-thumb"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 3D Room Box Layout -->
+        <div class="room-3d-box">
+            
+            <!-- Left Wall (with taped sketches and geometric art) -->
+            <div class="wall wall-left">
+                <div class="geometric-art-frame">
+                    <div class="sketch-paper sketch-1">
+                        <div class="tape tape-top"></div>
+                        <div class="tape tape-bottom"></div>
+                        <svg viewBox="0 0 100 120" class="sketch-svg">
+                            <!-- Geometric Abstract Art -->
+                            <line x1="10" y1="10" x2="90" y2="110" stroke="#4a5568" stroke-width="2"/>
+                            <line x1="90" y1="10" x2="10" y2="110" stroke="#4a5568" stroke-width="2"/>
+                            <rect x="25" y="25" width="50" height="70" fill="none" stroke="#2d3748" stroke-width="3"/>
+                            <circle cx="50" cy="60" r="20" fill="none" stroke="#e53e3e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="taped-blueprints">
+                    <div class="blueprint-paper">
+                        <div class="tape-corner tc-1"></div>
+                        <div class="tape-corner tc-2"></div>
+                        <div class="blueprint-title">J.A.R.V.I.S. Architecture</div>
+                        <svg viewBox="0 0 100 70" class="blueprint-svg">
+                            <!-- Neural Network Nodes Doodle -->
+                            <circle cx="20" cy="35" r="5" fill="#2b6cb0"/>
+                            <circle cx="50" cy="15" r="5" fill="#2b6cb0"/>
+                            <circle cx="50" cy="35" r="5" fill="#2b6cb0"/>
+                            <circle cx="50" cy="55" r="5" fill="#2b6cb0"/>
+                            <circle cx="80" cy="35" r="5" fill="#c53030"/>
+                            <line x1="25" y1="35" x2="45" y2="15" stroke="#4a5568" stroke-width="1.5"/>
+                            <line x1="25" y1="35" x2="45" y2="35" stroke="#4a5568" stroke-width="1.5"/>
+                            <line x1="25" y1="35" x2="45" y2="55" stroke="#4a5568" stroke-width="1.5"/>
+                            <line x1="55" y1="15" x2="75" y2="35" stroke="#4a5568" stroke-width="1.5"/>
+                            <line x1="55" y1="35" x2="75" y2="35" stroke="#4a5568" stroke-width="1.5"/>
+                            <line x1="55" y1="55" x2="75" y2="35" stroke="#4a5568" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Wall (Window, Curtains, Outside view) -->
+            <div class="wall wall-back">
+                
+                <!-- Window Area -->
+                <div class="window-area">
+                    <!-- Parallax Scenery -->
+                    <div class="scenery-container" id="scenery-container">
+                        <div class="scenery-layer layer-flat-background" data-speed="0.15"></div>
+                    </div>
+
+                    <!-- Window Frame -->
+                    <div class="window-frame">
+                        <div class="window-glass-pane"></div>
+                        <div class="window-grid-v"></div>
+                        <div class="window-grid-h"></div>
+                        <div class="window-sill"></div>
+                    </div>
+
+                    <!-- Animated Waving Curtains -->
+                    <div class="curtains-container">
+                        <div class="curtain curtain-left">
+                            <svg viewBox="0 0 120 600" preserveAspectRatio="none" class="curtain-svg">
+                                <path class="curtain-path-left" d="M0,0 C30,0 60,0 60,0 C60,150 45,300 55,450 C40,550 55,600 55,600 L0,600 Z" fill="var(--curtain-color)"></path>
+                            </svg>
+                            <div class="curtain-tie"></div>
+                        </div>
+                        <div class="curtain curtain-right">
+                            <svg viewBox="0 0 120 600" preserveAspectRatio="none" class="curtain-svg">
+                                <path class="curtain-path-right" d="M60,0 C90,0 120,0 120,0 L120,600 C65,600 80,550 65,450 C75,300 60,150 60,0" fill="var(--curtain-color)"></path>
+                            </svg>
+                            <div class="curtain-tie"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sun & Moon light rays -->
+                    <div class="sun-light-rays"></div>
+                    <div class="moon-light-rays"></div>
+                </div>
+
+            </div>
+
+            <!-- Right Wall (with wooden decorative shelf) -->
+            <div class="wall wall-right">
+                <div class="wall-wood-shelf">
+                    <div class="shelf-board"></div>
+                    <div class="shelf-bracket sb-left"></div>
+                    <div class="shelf-bracket sb-right"></div>
+                    <div class="shelf-item glass-jar">
+                        <div class="jar-glow"></div>
+                    </div>
+                    <div class="shelf-item tiny-plant"></div>
+                </div>
+            </div>
+
+            <!-- Room Floor -->
+            <div class="floor-planks"></div>
+
+            <!-- Wooden Sawhorse Desk (Foreground) -->
+            <div class="desk-structure">
+                <!-- Desk Tabletop Surface -->
+                <div class="desk-tabletop">
+                    <div class="wood-bevel"></div>
+                    <div class="wood-stripes"></div>
+                    
+                    <!-- Tabletop Objects Layout -->
+                    <div class="desk-contents">
+                        
+                        <!-- LEFT: Wooden Document & Book Organizer -->
+                        <div class="wooden-organizer" id="wooden-organizer">
+                            <div class="organizer-back"></div>
+                            <div class="organizer-dividers">
+                                <div class="divider div-1"></div>
+                                <div class="divider div-2"></div>
+                                <div class="divider div-3"></div>
+                            </div>
+                            
+                            <!-- Spaced Spines of Books inside Organizer -->
+                            <div class="books-wrapper">
+                                <div class="desk-book book-about" data-book="about" title="Open 'About Me' Book">
+                                    <div class="book-spine"><span class="spine-text">About Me</span></div>
+                                    <div class="book-cover-mock"></div>
+                                </div>
+                                <div class="desk-book book-skills" data-book="skills" title="Open 'My Skills' Book">
+                                    <div class="book-spine"><span class="spine-text">My Skills</span></div>
+                                    <div class="book-cover-mock"></div>
+                                </div>
+                                <div class="desk-book book-projects" data-book="projects" title="Open 'My Projects' Book">
+                                    <div class="book-spine"><span class="spine-text">My Projects</span></div>
+                                    <div class="book-cover-mock"></div>
+                                </div>
+                                <div class="desk-book book-resume" data-book="resume" id="download-resume-btn" title="Download my Resume (PDF)">
+                                    <div class="book-spine">
+                                        <span class="spine-text">Resume</span>
+                                        <div class="download-arrow">↓</div>
+                                    </div>
+                                    <div class="book-cover-mock"></div>
+                                </div>
+                            </div>
+                            <div class="organizer-front"></div>
+                        </div>
+
+                        <!-- LEFT-CENTER: Social Toolbox (Ceramic Cup) -->
+                        <div class="toolbox-container" id="toolbox-container">
+                            <div class="pen-cup">
+                                <div class="cup-body">
+                                    <div class="cup-gradient"></div>
+                                    <div class="cup-rim"></div>
+                                    <div class="cup-label">Social media links</div>
+                                </div>
+                            </div>
+                            <!-- Fan-arranged and overlapping social links -->
+                            <div class="tools-wrapper">
+                                <a href="https://github.com/k-rahul-chandra" target="_blank" class="desk-tool tool-github" title="GitHub Profile" data-name="GitHub">
+                                    <svg viewBox="0 0 40 160" class="tool-svg">
+                                        <rect x="15" y="45" width="10" height="95" rx="3" fill="#1e293b"></rect>
+                                        <rect x="23" y="60" width="3" height="35" rx="1" fill="#e2e8f0"></rect>
+                                        <path d="M15,45 L25,45 L25,20 L20,8 L15,20 Z" fill="#94a3b8"></path>
+                                        <line x1="20" y1="8" x2="20" y2="30" stroke="#1e293b" stroke-width="1.5"></line>
+                                    </svg>
+                                    <span class="tool-label">GitHub</span>
+                                </a>
+
+                                <a href="https://linkedin.com/in/rahul-chandra-karupakala-318a5b326" target="_blank" class="desk-tool tool-linkedin" title="LinkedIn Profile" data-name="LinkedIn">
+                                    <svg viewBox="0 0 40 160" class="tool-svg">
+                                        <rect x="16" y="25" width="8" height="115" fill="#0077b5"></rect>
+                                        <line x1="20" y1="25" x2="20" y2="140" stroke="#005582" stroke-width="1.5"></line>
+                                        <path d="M16,25 L24,25 L20,8 Z" fill="#fed7aa"></path>
+                                        <path d="M19,14 L21,14 L20,8 Z" fill="#374151"></path>
+                                        <rect x="16" y="140" width="8" height="10" fill="#94a3b8"></rect>
+                                        <path d="M16,150 L24,150 L24,155 Q20,158 16,155 Z" fill="#fda4af"></path>
+                                    </svg>
+                                    <span class="tool-label">LinkedIn</span>
+                                </a>
+
+                                <a href="https://instagram.com" target="_blank" class="desk-tool tool-instagram" title="Instagram Profile" data-name="Instagram">
+                                    <svg viewBox="0 0 40 160" class="tool-svg">
+                                        <path d="M18,55 L22,55 L21,155 L19,155 Z" fill="#78350f"></path>
+                                        <rect x="17" y="35" width="6" height="20" fill="#cbd5e1"></rect>
+                                        <path d="M17,35 Q14,8 20,4 Q26,8 23,35 Z" fill="#db2777"></path>
+                                    </svg>
+                                    <span class="tool-label">Instagram</span>
+                                </a>
+
+                                <a href="mailto:rahulchandrakarupakala@gmail.com" class="desk-tool tool-gmail" title="rahulchandrakarupakala@gmail.com" data-name="Gmail">
+                                    <svg viewBox="0 0 40 160" class="tool-svg">
+                                        <rect x="13" y="50" width="14" height="90" rx="2" fill="#ea580c"></rect>
+                                        <rect x="14" y="40" width="12" height="10" rx="1" fill="#4b5563"></rect>
+                                        <path d="M16,40 L24,40 L22,22 L16,26 Z" fill="#fdba74"></path>
+                                    </svg>
+                                    <span class="tool-label">rahulchandrakarupakala@gmail.com</span>
+                                </a>
+
+                                <a href="tel:+919502568861" class="desk-tool tool-envelope" title="+91 9502568861" data-name="Contact">
+                                    <svg viewBox="0 0 40 160" class="tool-svg">
+                                        <rect x="14" y="20" width="12" height="120" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"></rect>
+                                        <rect x="13" y="70" width="14" height="12" fill="#e11d48" rx="1"></rect>
+                                        <ellipse cx="20" cy="20" rx="6" ry="3" fill="#ca8a04"></ellipse>
+                                        <ellipse cx="20" cy="20" rx="4" ry="1.5" fill="#fef08a"></ellipse>
+                                    </svg>
+                                    <span class="tool-label">+91 9502568861</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- CENTER: PC Setup (Monitor, CPU, Keyboard, Mouse) -->
+                        <div class="pc-setup-container">
+                            <!-- Monitor Stand & Base -->
+                            <div class="monitor-base"></div>
+                            <div class="monitor-stand"></div>
+                            <!-- Monitor Screen -->
+                            <div class="monitor-bezel">
+                                <div class="monitor-screen">
+                                    <div class="screen-content">
+                                        <div class="anime-code-glow"></div>
+                                        <div class="clock-display" id="laptop-clock">10:42 AM</div>
+                                        <div class="date-display" id="monitor-date">Tue, Jul 7</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Keyboard -->
+                            <div class="pc-keyboard">
+                                <div class="keyboard-keys"></div>
+                            </div>
+                            <!-- Mouse -->
+                            <div class="pc-mouse"></div>
+                            <!-- CPU Desktop Tower -->
+                            <div class="cpu-tower">
+                                <div class="cpu-power-btn"></div>
+                                <div class="cpu-side-panel">
+                                    <div class="cpu-gpu-glow"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CENTER-RIGHT: Small Potted Cactus (matching reference image) -->
+                        <div class="cactus-container">
+                            <div class="cactus-pot"></div>
+                            <div class="cactus-plant">
+                                <div class="cactus-branch branch-left"></div>
+                                <div class="cactus-branch branch-right"></div>
+                                <div class="cactus-prickles"></div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT: Modern Adjustable Joint-Arm Metal Desk Lamp -->
+                        <div class="lamp-container" id="lamp-container">
+                            <svg viewBox="0 0 200 300" class="lamp-svg">
+                                <ellipse cx="100" cy="275" rx="55" ry="14" fill="#94a3b8" stroke="#475569" stroke-width="3.5"></ellipse>
+                                
+                                <!-- Articulated Arm Segments (Reference image style) -->
+                                <g class="lamp-arms">
+                                    <!-- Bottom joint stem -->
+                                    <path d="M100,270 L100,230" fill="none" stroke="#475569" stroke-width="10" stroke-linecap="round"></path>
+                                    <circle cx="100" cy="230" r="9" fill="#1e293b"></circle>
+                                    
+                                    <!-- First long arm -->
+                                    <line x1="100" y1="230" x2="60" y2="120" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"></line>
+                                    <circle cx="60" cy="120" r="8" fill="#1e293b"></circle>
+                                    
+                                    <!-- Second long arm -->
+                                    <line x1="60" y1="120" x2="135" y2="70" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"></line>
+                                    <circle cx="135" cy="70" r="8" fill="#1e293b"></circle>
+                                    
+                                    <!-- Head connection bracket -->
+                                    <line x1="135" y1="70" x2="148" y2="80" stroke="#475569" stroke-width="6"></line>
+                                    
+                                    <!-- Metal Shade (Adjustable angle pointing down-left) -->
+                                    <g transform="rotate(25 148 80)">
+                                        <!-- Glowing Bulb inside -->
+                                        <circle class="lamp-bulb" cx="150" cy="108" r="15" fill="#ffffff" filter="url(#lampGlow)"></circle>
+                                        <!-- Steel Shade dome -->
+                                        <path d="M125,75 Q150,55 175,75 L188,112 L112,112 Z" fill="#64748b" stroke="#334155" stroke-width="3" stroke-linejoin="round"></path>
+                                    </g>
+                                </g>
+                            </svg>
+
+                            <!-- Interactive String (Draggable knob) -->
+                            <div class="lamp-pull-string" id="lamp-pull-string" title="Drag string down to switch day/night">
+                                <div class="string-line" id="string-line"></div>
+                                <div class="string-handle" id="string-handle"></div>
+                            </div>
+
+                            <!-- Lamp Light Cone overlay -->
+                            <div class="lamp-light-cone"></div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- White Trestle/Sawhorse Table Legs (Matching reference image) -->
+                <div class="desk-legs">
+                    <!-- Left sawhorse leg -->
+                    <div class="sawhorse-leg sawhorse-left">
+                        <div class="sawhorse-beam beam-top"></div>
+                        <div class="sawhorse-strut strut-left"></div>
+                        <div class="sawhorse-strut strut-right"></div>
+                        <div class="sawhorse-brace brace-middle"></div>
+                        <div class="sawhorse-shelf-plank"></div>
+                    </div>
+                    <!-- Right sawhorse leg -->
+                    <div class="sawhorse-leg sawhorse-right">
+                        <div class="sawhorse-beam beam-top"></div>
+                        <div class="sawhorse-strut strut-left"></div>
+                        <div class="sawhorse-strut strut-right"></div>
+                        <div class="sawhorse-brace brace-middle"></div>
+                        <div class="sawhorse-shelf-plank"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Subtle ambient vignette overlay -->
+        <div class="ambient-vignette"></div>
+    </div>
+
+    <!-- Storybook Fullscreen Closeup Overlay -->
+    <div class="storybook-overlay" id="storybook-overlay">
+        <!-- Close button styled as a hanging bookmark ribbon -->
+        <div class="bookmark-close" id="bookmark-close" title="Keep book back on shelf">
+            <span class="bookmark-text">Back to Desk</span>
+            <div class="bookmark-ribbon"></div>
+        </div>
+
+        <!-- Storybook Container -->
+        <div class="book-viewport">
+            <div class="storybook" id="active-storybook">
+                
+                <!-- Left/Right Click zones for turning pages -->
+                <div class="page-turn-zone zone-left" id="zone-left" title="Previous Page">
+                    <span class="arrow">&lsaquo;</span>
+                </div>
+                <div class="page-turn-zone zone-right" id="zone-right" title="Next Page">
+                    <span class="arrow">&rsaquo;</span>
+                </div>
+
+                <!-- Book Pages Container -->
+                <div class="pages-wrapper" id="pages-wrapper">
+                    
+                    <!-- ============================================== -->
+                    <!-- JOURNAL LAYOUT FOR: ABOUT ME -->
+                    <!-- ============================================== -->
+                    <div class="book-content-group" id="content-about">
+                        <!-- Spread 1 (Pages 1 & 2) -->
+                        <div class="book-spread active" data-spread="0">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Introduction</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="handwritten-title">K. Rahul Chandra</h2>
+                                    <p class="journal-paragraph signature-vibe">
+                                        Hi! I am a passionate B.Tech student majoring in <strong>Artificial Intelligence and Machine Learning (AIML)</strong>. 
+                                        I build smart web sites, design autonomous agents, and love bringing digital worlds to life through clean interfaces and rich interactive animations.
+                                    </p>
+                                    <p class="journal-paragraph">
+                                        Since I was introduced to coding, my goal has been to bridge the gap between complex backend machine learning systems and delightful user-facing experiences. This website is a manifestation of that vision!
+                                    </p>
+                                    <div class="sketched-stamp">AIML Engineer</div>
+                                </div>
+                                <div class="page-footer">Page 1</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Education</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <div class="edu-card">
+                                        <h3 class="edu-inst">Malla Reddy University</h3>
+                                        <p class="edu-location">Hyderabad, India</p>
+                                        <p class="edu-degree"><strong>B.Tech in Artificial Intelligence & Machine Learning</strong></p>
+                                        <p class="edu-timeline">Expected Graduation: 2027</p>
+                                        
+                                        <!-- Grade Seal -->
+                                        <div class="grade-seal">
+                                            <div class="seal-inner">
+                                                <span class="seal-label">CGPA</span>
+                                                <span class="seal-value">7.5</span>
+                                                <span class="seal-max">/ 10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="journal-paragraph quote-box">
+                                        "The best way to predict the future is to build it."
+                                    </p>
+                                </div>
+                                <div class="page-footer">Page 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Spread 2 (Pages 3 & 4) -->
+                        <div class="book-spread" data-spread="1">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Leadership & Vision</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h3 class="journal-subtitle">Project Team Lead</h3>
+                                    <p class="journal-paragraph">
+                                        At Malla Reddy University, I lead a peer developer team through software build cycles. Key responsibilities:
+                                    </p>
+                                    <ul class="journal-list">
+                                        <li>Directing 3-member developer sprints, mapping tasks directly to core developer skill sets.</li>
+                                        <li>Establishing clean version control rules to minimize deployment conflicts.</li>
+                                        <li>Orchestrating smooth merge pipelines on GitHub.</li>
+                                    </ul>
+                                </div>
+                                <div class="page-footer">Page 3</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Core Aspirations</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h3 class="journal-subtitle">AI & Agentic Systems</h3>
+                                    <p class="journal-paragraph">
+                                        I am highly focused on building autonomous agent frameworks (e.g. CrewAI, AutoGen, LangChain) that can collaborate on complex workflows.
+                                    </p>
+                                    <p class="journal-paragraph">
+                                        I believe the next wave of computing lies in context-aware assistants that seamlessly handle developer operations, data research, and desktop integration.
+                                    </p>
+                                    <div class="doodle-container">
+                                        <svg viewBox="0 0 100 60" width="100" class="doodle-svg">
+                                            <rect x="25" y="10" width="50" height="35" rx="5" fill="none" stroke="currentColor" stroke-dasharray="3,3" stroke-width="1.5"></rect>
+                                            <circle cx="40" cy="22" r="4" fill="currentColor"></circle>
+                                            <circle cx="60" cy="22" r="4" fill="currentColor"></circle>
+                                            <path d="M42,32 Q50,38 58,32" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                                            <line x1="50" y1="10" x2="50" y2="2" stroke="currentColor" stroke-width="1.5"></line>
+                                            <circle cx="50" cy="2" r="2" fill="currentColor"></circle>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="page-footer">Page 4</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- JOURNAL LAYOUT FOR: MY SKILLS -->
+                    <!-- ============================================== -->
+                    <div class="book-content-group" id="content-skills">
+                        <!-- Spread 1 -->
+                        <div class="book-spread active" data-spread="0">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Programming Inventory</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="handwritten-title">Languages & Tools</h2>
+                                    <p class="journal-paragraph">
+                                        Every engineer needs a toolbox. Here are the programming languages I speak fluently:
+                                    </p>
+                                    
+                                    <div class="skills-grid">
+                                        <div class="skill-item">
+                                            <span class="skill-name">Python</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner python-bar" style="width: 85%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">Java</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner java-bar" style="width: 70%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">JavaScript</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner js-bar" style="width: 75%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">SQL</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner sql-bar" style="width: 80%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="page-footer">Page 1</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Web Development</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="handwritten-title">Web Stack</h2>
+                                    <p class="journal-paragraph">
+                                        Creating immersive, interactive interfaces:
+                                    </p>
+                                    <div class="webdev-badges">
+                                        <span class="badge">HTML5</span>
+                                        <span class="badge">CSS3</span>
+                                        <span class="badge">React.js</span>
+                                        <span class="badge">Node.js</span>
+                                        <span class="badge">Streamlit</span>
+                                        <span class="badge">Git / GitHub</span>
+                                    </div>
+                                    <p class="journal-paragraph" style="margin-top: 15px;">
+                                        I specialize in building rich dashboards, single page applications with highly-tuned custom styles, and modular scripts.
+                                    </p>
+                                </div>
+                                <div class="page-footer">Page 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Spread 2 -->
+                        <div class="book-spread" data-spread="1">
+                            <div class="journal-page page-left">
+                                <div class="page-header">AI & Machine Learning</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h3 class="journal-subtitle">Machine Learning Systems</h3>
+                                    <div class="skills-grid">
+                                        <div class="skill-item">
+                                            <span class="skill-name">Scikit-Learn</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner ml-bar" style="width: 80%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">Unsupervised Clustering</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner ml-bar" style="width: 75%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">Predictive Modeling</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner ml-bar" style="width: 80%"></div></div>
+                                        </div>
+                                        <div class="skill-item">
+                                            <span class="skill-name">Pandas & NumPy</span>
+                                            <div class="skill-bar-outer"><div class="skill-bar-inner ml-bar" style="width: 85%"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="page-footer">Page 3</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Generative AI & Databases</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h3 class="journal-subtitle">GenAI & Agents</h3>
+                                    <div class="bullet-skills-list">
+                                        <div><strong>Frameworks:</strong> LangChain, CrewAI, AutoGen</div>
+                                        <div><strong>LLM Integration:</strong> OpenAI API, Ollama (Local Execution)</div>
+                                        <div><strong>Prompt Engineering:</strong> System Instructions, Few-shot prompting</div>
+                                    </div>
+                                    
+                                    <h3 class="journal-subtitle" style="margin-top: 15px;">Databases & Vectors</h3>
+                                    <div class="bullet-skills-list">
+                                        <div><strong>Relational:</strong> MySQL</div>
+                                        <div><strong>Vector DBs:</strong> ChromaDB, Pinecone</div>
+                                    </div>
+                                </div>
+                                <div class="page-footer">Page 4</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================== -->
+                    <!-- JOURNAL LAYOUT FOR: MY PROJECTS -->
+                    <!-- ============================================== -->
+                    <div class="book-content-group" id="content-projects">
+                        <!-- Spread 1 -->
+                        <div class="book-spread active" data-spread="0">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Project I</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="project-title-h">J.A.R.V.I.S.</h2>
+                                    <p class="project-tagline">Context-Aware Voice AI Agent (Solo Project)</p>
+                                    <div class="project-tech-badges">
+                                        <span>Python</span>
+                                        <span>LangChain</span>
+                                        <span>OpenAI/Ollama</span>
+                                        <span>Whisper API</span>
+                                        <span>PyAutoGUI</span>
+                                    </div>
+                                    <p class="journal-paragraph project-desc">
+                                        An autonomous local AI assistant utilizing LLMs and Advanced Function Calling to manage system-level operations.
+                                    </p>
+                                </div>
+                                <div class="page-footer">Page 1</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Project I Details</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <ul class="journal-list project-bullets">
+                                        <li>Implemented real-time Speech-to-Text and Text-to-Speech pipelines with Whisper API for ultra-low latency voice interaction.</li>
+                                        <li>Integrated custom automation scripts to control system apps, manage background calendars, and send message dispatches.</li>
+                                        <li>Engineered self-correcting logic where the agent adjusts command arguments dynamically based on shell responses.</li>
+                                    </ul>
+                                </div>
+                                <div class="page-footer">Page 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Spread 2 -->
+                        <div class="book-spread" data-spread="1">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Project II</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="project-title-h">Customer Segmentation</h2>
+                                    <p class="project-tagline">Enterprise Bank Segmentation (Collaboration)</p>
+                                    <div class="project-tech-badges">
+                                        <span>Python</span>
+                                        <span>Scikit-Learn</span>
+                                        <span>Pandas</span>
+                                        <span>NumPy</span>
+                                        <span>Streamlit</span>
+                                    </div>
+                                    <p class="journal-paragraph project-desc">
+                                        An end-to-end unsupervised machine learning pipeline extracting actionable profiles from 1M+ transactions across 800K consumers.
+                                    </p>
+                                </div>
+                                <div class="page-footer">Page 3</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Project II Details</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <ul class="journal-list project-bullets">
+                                        <li>Applied RFM (Recency, Frequency, Monetary) scaling and optimized K-Means clustering using the Elbow Method.</li>
+                                        <li>Overcame hardware memory constraints during massive data loading by optimizing feature types and batch processing.</li>
+                                        <li>Built a dashboard in Streamlit to visually isolate cluster properties and user demographic metrics.</li>
+                                    </ul>
+                                </div>
+                                <div class="page-footer">Page 4</div>
+                            </div>
+                        </div>
+
+                        <!-- Spread 3 -->
+                        <div class="book-spread" data-spread="2">
+                            <div class="journal-page page-left">
+                                <div class="page-header">Project III</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <h2 class="project-title-h">Multi-Agent Assistant</h2>
+                                    <p class="project-tagline">Collaborative AI Research (Solo Project)</p>
+                                    <div class="project-tech-badges">
+                                        <span>Python</span>
+                                        <span>CrewAI</span>
+                                        <span>LangChain</span>
+                                        <span>ChromaDB</span>
+                                        <span>Hugging Face</span>
+                                    </div>
+                                    <p class="journal-paragraph project-desc">
+                                        A local network where independent AI personas collaborate autonomously to conduct academic research and debug code scripts.
+                                    </p>
+                                </div>
+                                <div class="page-footer">Page 5</div>
+                            </div>
+                            <div class="journal-page page-right">
+                                <div class="page-header">Project III Details</div>
+                                <div class="sketchy-divider"></div>
+                                <div class="page-body">
+                                    <ul class="journal-list project-bullets">
+                                        <li>Programmed a multi-layered workflow: Research Agent (parses documentation), Developer Agent (writes code), and Reviewer Agent (stresstests scripts).</li>
+                                        <li>Integrated ChromaDB as a local embedded vector database to empower agents with semantic search capabilities.</li>
+                                        <li>Reduced documentation lookup time by over 60% through custom semantic caching mechanisms.</li>
+                                    </ul>
+                                </div>
+                                <div class="page-footer">Page 6</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script src="index.js?v=10"></script>
+</body>
+</html>
