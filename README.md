@@ -2,9 +2,6 @@
 
 An immersive, anime-inspired 3D "study desk" portfolio built entirely with vanilla **HTML, CSS, and JavaScript** — no frameworks, no build tools. Visitors explore a cozy virtual room with a day/night cycle, parallax window scenery, and a flip-through journal that showcases projects, skills, and experience.
 
-![Day Mode](background-day.png)
-![Night Mode](background-night.png)
-
 ## ✨ Live Demo
 
 > Add your deployed link here once hosted (e.g. GitHub Pages / Netlify / Vercel)
