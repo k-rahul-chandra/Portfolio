@@ -4,7 +4,7 @@ An immersive, anime-inspired 3D "study desk" portfolio built entirely with vanil
 
 ## ✨ Live Demo
 
-> 🔗 **[rahul-resume.in](#)**
+> 🔗 **[[rahul-resume.in](https://rahul-resume.in/)](#)**
 
 ## 🧠 About
 
